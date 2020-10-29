@@ -1,10 +1,13 @@
 import { Theme } from './js/theme';
+import menuTemplate from './templates/template-menu.hbs';
+import menuData from './menu.json';
 import './styles.css';
-
-console.log(Theme.LIGHT);
 
 const bodyRef = document.querySelector('body');
 const checkboxSwitchThemeRef = document.querySelector('#theme-switch-toggle');
+const listMenuRef = document.querySelector('.js-menu');
+
+listMenuRef.insertAdjacentHTML('beforeend', menuTemplate(menuData))
 
 const saveThemeLocal = (e) => {
     if (e.target.checked) { toggleInThemeDark(), localStorage.setItem('theme', Theme.DARK) }
