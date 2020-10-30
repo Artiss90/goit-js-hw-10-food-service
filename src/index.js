@@ -10,8 +10,8 @@ const listMenuRef = document.querySelector('.js-menu');
 listMenuRef.insertAdjacentHTML('beforeend', menuTemplate(menuData))
 
 const saveThemeLocal = (e) => {
-    if (e.target.checked) { toggleInThemeDark(), localStorage.setItem('theme', Theme.DARK) }
-    else { toggleInThemeLight(), localStorage.setItem('theme', Theme.LIGHT) }
+    if (e.target.checked) { toggleInTheme(Theme.DARK, Theme.LIGHT), localStorage.setItem('theme', Theme.DARK) }
+    else { toggleInTheme(Theme.LIGHT, Theme.DARK), localStorage.setItem('theme', Theme.LIGHT) }
 };
 
 /* Вешаем событие переключения темы */
@@ -19,9 +19,9 @@ checkboxSwitchThemeRef.addEventListener('change', saveThemeLocal);
 
 const loadThemeLocal = () => {
     if (localStorage.getItem('theme') === Theme.LIGHT || localStorage.getItem('theme') === null) {
-        addLightTheme(),
+        addTheme(Theme.LIGHT),
        checkboxSwitchThemeRef.checked = false;
-    } else if(localStorage.getItem('theme') === Theme.DARK) {addDarkTheme(), checkboxSwitchThemeRef.checked = true;
+    } else if(localStorage.getItem('theme') === Theme.DARK) {addTheme(Theme.DARK), checkboxSwitchThemeRef.checked = true;
 }
 };
 
@@ -29,10 +29,10 @@ const loadThemeLocal = () => {
 document.addEventListener('DOMContentLoaded', loadThemeLocal);
 
 /* добавление-удаление класса*/
-const toggleInThemeDark = () => { addDarkTheme(),removeLightTheme() };
-const toggleInThemeLight = () => { addLightTheme(),removeDarkTheme() };
-const addLightTheme = () => { bodyRef.classList.add(Theme.LIGHT) };
-const addDarkTheme = () => { bodyRef.classList.add(Theme.DARK) };
-const removeLightTheme = () => { bodyRef.classList.remove(Theme.LIGHT) };
-const removeDarkTheme = () => { bodyRef.classList.remove(Theme.DARK) };
+const toggleInTheme = (add, remove) => { addTheme(add),removeTheme(remove) };
+// const toggleInThemeLight = () => { addLightTheme(),removeDarkTheme() };
+const addTheme = (theme) => { bodyRef.classList.add(theme) };
+// const addDarkTheme = (theme) => { bodyRef.classList.add(Theme.DARK) };
+const removeTheme = (theme) => { bodyRef.classList.remove(theme) };
+// const removeDarkTheme = (theme) => { bodyRef.classList.remove(theme) };
 
